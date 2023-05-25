@@ -15,7 +15,6 @@ export default function ClientForm() {
   const [counter, setCounter] = useState(0)
 
   const [transcriptRes, setTranscriptRes] = useState("")
-  // const [cleanScript, setCleanScript] = useState("")
   const [emailContent, setEmailContent] = useState("")
   const [alternateSubjects, setAlternateSubjects] = useState("")
 
@@ -33,8 +32,8 @@ export default function ClientForm() {
   }
 
   const generateResponse = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (counter >= 3) {
-      router.refresh()
+    if (counter > 2) {
+      window.location.reload()
     }
     e.preventDefault();
     setResponse("");
@@ -112,7 +111,7 @@ export default function ClientForm() {
           <div dangerouslySetInnerHTML={{ __html: alternateSubjects }} className="mb-3 mt-0 rounded-xl border bg-white p-4 shadow-md transition hover:bg-gray-100" />
         </>
       )}
-      {counter == 0 && (
+      {counter == 0 && !loading && (
         <>
           <div className="mt-4 flex flex-col items-center justify-center gap-2 font-mono md:flex-row">
             <div className="bg-neuborder-neutral-900 flex h-8 w-8 items-center justify-center rounded-full bg-neutral-900 dark:bg-white">
@@ -133,7 +132,7 @@ export default function ClientForm() {
             placeholder={"e.g. hey traders to the top flow of the day 0:03..."}
           />
         </>
-      )} {counter == 1 && (
+      )} {counter == 1 && !loading && (
           <>
             <div className=" flex flex-col items-center justify-center gap-2 font-mono md:flex-row">
               <div className="bg-neuborder-neutral-900 flex h-8 w-8 items-center justify-center rounded-full bg-neutral-900 dark:bg-white">
@@ -170,7 +169,7 @@ export default function ClientForm() {
       ) : (
         <button
           disabled
-          className="w-full rounded-xl bg-neutral-900 px-4 py-2 font-medium text-white"
+          className="w-full rounded-xl bg-neutral-900 px-4 py-2 font-medium text-white mt-4"
         >
             <div className="animate-pulse font-bold tracking-widest">
               {counter < 2 ? "..." : "Completing final taks..."}
